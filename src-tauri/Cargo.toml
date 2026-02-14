@@ -1,0 +1,29 @@
+[package]
+name = "prompt-os"
+version = "0.1.0"
+description = "macOS AI Writing Assistant"
+authors = ["you"]
+edition = "2021"
+
+[lib]
+name = "prompt_os_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = ["macos-private-api", "tray-icon"] }
+tauri-plugin-shell = "2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+raw-window-handle = "0.6"
+
+# macOS-specific dependencies
+[target.'cfg(target_os = "macos")'.dependencies]
+core-graphics = "0.24"
+core-foundation = "0.10"
+security-framework = "3"
+objc = "0.2"
+cocoa = "0.26"
+accessibility-sys = "0.1"
